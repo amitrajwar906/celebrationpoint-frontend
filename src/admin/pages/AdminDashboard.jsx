@@ -49,12 +49,26 @@ export default function AdminDashboard() {
         console.log("[ADMIN] Loading dashboard statistics");
         const res = await apiClient.get("/api/admin/dashboard");
         console.log("[ADMIN] Dashboard stats loaded:", res.data);
-        setStats(res.data);
-
+        
         // Fetch real order data for trends
         try {
           const ordersRes = await apiClient.get("/api/admin/orders");
           const orders = Array.isArray(ordersRes.data) ? ordersRes.data : [];
+          
+          // Calculate real revenue from orders
+          let totalRevenue = 0;
+          orders.forEach((order) => {
+            totalRevenue += (order.totalPrice || order.amount || 0);
+          });
+          
+          console.log("[ADMIN] Calculated real revenue from orders:", totalRevenue);
+          
+          // Update stats with real revenue from orders
+          const updatedStats = {
+            ...res.data,
+            totalRevenue: totalRevenue || res.data.totalRevenue || 0,
+          };
+          setStats(updatedStats);
           
           // Group orders by date (last 7 days)
           const today = new Date();
@@ -73,7 +87,7 @@ export default function AdminDashboard() {
             
             if (trendMap[dateStr]) {
               trendMap[dateStr].orders += 1;
-              trendMap[dateStr].revenue += (order.totalPrice || 0);
+              trendMap[dateStr].revenue += (order.totalPrice || order.amount || 0);
             }
           });
 
@@ -84,7 +98,7 @@ export default function AdminDashboard() {
           }));
 
           setOrderTrends(trendData);
-          console.log("[ADMIN] Trend data:", trendData);
+          console.log("[ADMIN] Trend data with real revenue:", trendData);
 
           // Count orders by status
           const statusCounts = {
