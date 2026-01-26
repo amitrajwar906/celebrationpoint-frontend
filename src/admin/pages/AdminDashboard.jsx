@@ -229,56 +229,19 @@ export default function AdminDashboard() {
           console.log("[ADMIN] Status distribution:", statusData);
         } catch (err) {
           console.error("[ADMIN] Failed to fetch order trends:", err);
-          // Fallback to mock data
-          const today = new Date();
-          const trendData = Array.from({ length: 7 }, (_, i) => {
-            const date = new Date(today);
-            date.setDate(date.getDate() - (6 - i));
-            return {
-              date: date.toLocaleDateString("en-IN", { month: "short", day: "numeric" }),
-              orders: Math.floor(Math.random() * 15) + 5,
-              revenue: Math.floor(Math.random() * 50000) + 10000,
-            };
-          });
-          setOrderTrends(trendData);
-
-          // Set mock status distribution
-          if (res.data.totalOrders > 0) {
-            const statusData = [
-              { name: "Pending", value: Math.ceil(res.data.totalOrders * 0.35), color: "#FFB800" },
-              { name: "Delivered", value: Math.ceil(res.data.totalOrders * 0.50), color: "#22C55E" },
-              { name: "Cancelled", value: Math.floor(res.data.totalOrders * 0.15), color: "#EF4444" },
-            ];
-            setStatusDistribution(statusData);
-          }
+          console.error("[ADMIN] Error details:", err.message);
+          // Don't fallback to mock data - log the error so we can see what happened
         }
 
         // Calculate status distribution from real data (if not already done in try block)
-        if (statusDistribution.length === 0 && res.data.totalOrders > 0) {
-          const statusData = [
-            { name: "Pending", value: Math.ceil(res.data.totalOrders * 0.35), color: "#FFB800" },
-            { name: "Delivered", value: Math.ceil(res.data.totalOrders * 0.50), color: "#22C55E" },
-            { name: "Cancelled", value: Math.floor(res.data.totalOrders * 0.15), color: "#EF4444" },
-          ];
-          setStatusDistribution(statusData);
+        if (statusDistribution.length === 0) {
+          console.warn("[ADMIN] No status distribution set - statusDistribution is empty");
         }
       } catch (err) {
         console.error("[ADMIN] Dashboard stats failed:", err);
         console.error("[ADMIN] Error response:", err.response?.data);
 
-        // Set mock data for demo
-        const today = new Date();
-        setOrderTrends(
-          Array.from({ length: 7 }, (_, i) => {
-            const date = new Date(today);
-            date.setDate(date.getDate() - (6 - i));
-            return {
-              date: date.toLocaleDateString("en-IN", { month: "short", day: "numeric" }),
-              orders: Math.floor(Math.random() * 15) + 5,
-              revenue: Math.floor(Math.random() * 50000) + 10000,
-            };
-          })
-        );
+        // Don't set mock data - show the error instead
       } finally {
         setLoading(false);
       }
