@@ -82,15 +82,15 @@ export default function ProductCard({ product }) {
       </Link>
 
       {/* Info - Clickable Link */}
-      <Link to={`/product/${product.id}`} className="block mb-2">
-        <h3 className={`font-semibold line-clamp-1 hover:opacity-80 transition ${
+      <Link to={`/product/${product.id}`} className="block mb-2 min-w-0">
+        <h3 className={`font-semibold line-clamp-2 hover:opacity-80 transition text-xs sm:text-sm md:text-base break-words ${
           theme === "light" ? "text-black" : "text-white"
         }`}>
           {product.name}
         </h3>
       </Link>
 
-      <p className={`text-sm mb-2 line-clamp-2 ${
+      <p className={`text-xs sm:text-sm mb-2 line-clamp-2 break-words ${
         theme === "light" ? "text-gray-600" : "text-white/60"
       }`}>
         {product.description || "Premium celebration product"}
@@ -98,12 +98,12 @@ export default function ProductCard({ product }) {
 
       {/* Price & Quantity */}
       <div className="mt-auto space-y-3">
-        <div className="flex items-center justify-between">
-          <span className="text-lg font-bold text-primary">
+        <div className="flex items-center justify-between gap-2 min-w-0">
+          <span className="text-sm sm:text-base md:text-lg font-bold text-primary truncate">
             ₹{product.price}
           </span>
           {qty > 0 ? (
-            <span className={`text-sm font-medium px-2 py-1 rounded-lg ${
+            <span className={`text-xs sm:text-sm font-medium px-2 py-1 rounded-lg whitespace-nowrap flex-shrink-0 ${
               theme === "light"
                 ? "bg-green-100 text-green-700"
                 : "bg-green-500/20 text-green-400"
@@ -111,7 +111,7 @@ export default function ProductCard({ product }) {
               {qty} left
             </span>
           ) : (
-            <span className={`text-sm font-medium px-2 py-1 rounded-lg ${
+            <span className={`text-xs sm:text-sm font-medium px-2 py-1 rounded-lg whitespace-nowrap flex-shrink-0 ${
               theme === "light"
                 ? "bg-red-100 text-red-700"
                 : "bg-red-500/20 text-red-400"
@@ -124,14 +124,14 @@ export default function ProductCard({ product }) {
         <button
           onClick={handleAddToCart}
           disabled={!qty || qty === 0}
-          className={`w-full inline-flex items-center justify-center gap-2 px-4 py-2 rounded-lg transition ${
+          className={`w-full inline-flex items-center justify-center gap-1 sm:gap-2 px-2 sm:px-4 py-2 rounded-lg text-xs sm:text-sm transition ${
             qty > 0
               ? "bg-primary/90 hover:bg-primary cursor-pointer"
               : "bg-gray-400 cursor-not-allowed opacity-50"
           }`}
         >
-          <FiShoppingCart />
-          {qty > 0 ? "Add" : "Out of Stock"}
+          <FiShoppingCart size={16} />
+          <span className="truncate">{qty > 0 ? "Add" : "Out of Stock"}</span>
         </button>
       </div>
     </div>

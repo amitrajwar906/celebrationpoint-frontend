@@ -10,8 +10,8 @@ export default function AdminLayout() {
   return (
     <div className="flex min-h-screen bg-[#070b1a] text-white">
       
-      {/* ================= DESKTOP SIDEBAR ================= */}
-      <div className="hidden lg:block">
+      {/* ================= DESKTOP SIDEBAR (FIXED) ================= */}
+      <div className="hidden lg:block fixed left-0 top-0 h-screen z-40">
         <AdminSidebar />
       </div>
 
@@ -39,7 +39,7 @@ export default function AdminLayout() {
       )}
 
       {/* ================= MAIN AREA ================= */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col lg:ml-[260px]">
 
         {/* ✅ Topbar ONLY (no hamburger here anymore) */}
         <AdminTopbar onMenuClick={() => setMobileOpen(true)} />

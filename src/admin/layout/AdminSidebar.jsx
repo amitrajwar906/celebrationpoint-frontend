@@ -27,7 +27,7 @@ export default function AdminSidebar({ onNavigate }) {
   };
 
   return (
-    <aside className="w-[260px] flex flex-col bg-[#0e1425] border-r border-white/10 h-full">
+    <aside className="w-[260px] flex flex-col bg-[#0e1425] border-r border-white/10 h-screen overflow-y-auto">
       
       {/* ================= BRAND ================= */}
       <div className="px-6 py-6 text-xl font-bold tracking-wide">
