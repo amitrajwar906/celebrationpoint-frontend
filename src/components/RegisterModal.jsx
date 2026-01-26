@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { FiX, FiUser, FiMail, FiLock } from "react-icons/fi";
 import { toast } from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../api/auth.api";
 import { useAuth } from "../context/AuthContext";
 
-export default function RegisterModal({ open, onClose }) {
+export default function RegisterModal({ open, onClose, onSwitchToLogin }) {
+  const navigate = useNavigate();
   const { login } = useAuth();
   const [form, setForm] = useState({
     fullName: "",
@@ -52,15 +54,15 @@ export default function RegisterModal({ open, onClose }) {
       const res = await registerUser(form);
       console.log("Registration response:", res.data);
 
-      // Extract token from response
-      const token = res.data.token;
-      if (token) {
-        login(token);
-        toast.success("Account created! Welcome to Celebration Point 🎉");
-      } else {
-        toast.success("Account created successfully 🎉");
-      }
+      toast.success("Account created successfully 🎉");
+      
+      // Close the register modal
       onClose();
+      
+      // Switch to login modal after a brief delay
+      setTimeout(() => {
+        onSwitchToLogin();
+      }, 500);
     } catch (err) {
       console.error("Registration error:", err);
       toast.error("Registration failed");
@@ -145,6 +147,18 @@ export default function RegisterModal({ open, onClose }) {
             className="w-full py-3 rounded-xl bg-primary shadow-glow hover:opacity-90 transition disabled:opacity-50"
           >
             {loading ? "Creating account..." : "Register"}
+          </button>
+
+          {/* Login Button */}
+          <button
+            type="button"
+            onClick={() => {
+              onSwitchToLogin();
+              onClose();
+            }}
+            className="w-full py-3 rounded-xl border border-primary text-primary hover:bg-primary/10 transition"
+          >
+            Already have account? Login
           </button>
         </form>
       </div>

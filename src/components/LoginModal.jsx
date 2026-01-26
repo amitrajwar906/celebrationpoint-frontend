@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api/auth.api";
 import { useAuth } from "../context/AuthContext";
 
-export default function LoginModal({ open, onClose }) {
+export default function LoginModal({ open, onClose, onSwitchToRegister }) {
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -145,6 +145,18 @@ export default function LoginModal({ open, onClose }) {
             className="w-full py-3 rounded-xl bg-primary shadow-glow hover:opacity-90 transition disabled:opacity-50"
           >
             {loading ? "Logging in..." : "Login"}
+          </button>
+
+          {/* Create Account Button */}
+          <button
+            type="button"
+            onClick={() => {
+              onSwitchToRegister();
+              onClose();
+            }}
+            className="w-full py-3 rounded-xl border border-primary text-primary hover:bg-primary/10 transition"
+          >
+            Create Account
           </button>
         </form>
       </div>

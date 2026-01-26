@@ -325,10 +325,15 @@ export default function Navbar() {
       </header>
 
       {/* ================= AUTH MODALS ================= */}
-      <LoginModal open={showLogin} onClose={() => setShowLogin(false)} />
+      <LoginModal 
+        open={showLogin} 
+        onClose={() => setShowLogin(false)}
+        onSwitchToRegister={() => setShowRegister(true)}
+      />
       <RegisterModal
         open={showRegister}
         onClose={() => setShowRegister(false)}
+        onSwitchToLogin={() => setShowLogin(true)}
       />
     </>
   );
