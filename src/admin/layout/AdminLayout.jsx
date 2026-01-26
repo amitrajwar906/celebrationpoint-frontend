@@ -25,15 +25,17 @@ export default function AdminLayout() {
           />
 
           {/* Slide menu */}
-          <div className="fixed inset-y-0 left-0 w-64 bg-[#070b1a] z-50 lg:hidden shadow-xl">
-            <div className="flex justify-between items-center p-4 border-b border-white/10">
+          <div className="fixed inset-y-0 left-0 w-64 bg-[#070b1a] z-50 lg:hidden shadow-xl flex flex-col overflow-hidden">
+            <div className="flex justify-between items-center p-4 border-b border-white/10 flex-shrink-0">
               <h2 className="font-bold text-lg">Admin Menu</h2>
               <button onClick={() => setMobileOpen(false)}>
                 <FiX size={22} />
               </button>
             </div>
 
-            <AdminSidebar onNavigate={() => setMobileOpen(false)} />
+            <div className="flex-1 overflow-y-auto">
+              <AdminSidebar onNavigate={() => setMobileOpen(false)} />
+            </div>
           </div>
         </>
       )}
