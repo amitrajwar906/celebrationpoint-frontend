@@ -4,7 +4,9 @@ import {
   FiCheckCircle,
   FiXCircle,
   FiTruck,
+  FiRefreshCw,
 } from "react-icons/fi";
+import { OrderSkeleton } from "../../components/Skeleton";
 
 import {
   getAllOrders,
@@ -31,14 +33,19 @@ const ORDER_STATUSES = [
 export default function AdminOrders() {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [refreshing, setRefreshing] = useState(false);
   const [activeTab, setActiveTab] = useState(TABS.PENDING);
   const [itemsMap, setItemsMap] = useState({}); // Track items for each order
   const [searchId, setSearchId] = useState(""); // Search by order ID
 
   /* ================= LOAD ================= */
-  const loadOrders = async () => {
+  const loadOrders = async (isRefresh = false) => {
     try {
-      setLoading(true);
+      if (isRefresh) {
+        setRefreshing(true);
+      } else {
+        setLoading(true);
+      }
       console.log("[ADMIN] Loading all orders");
       const res = await getAllOrders();
       console.log("[ADMIN] Orders loaded:", res.data);
@@ -67,6 +74,7 @@ export default function AdminOrders() {
       toast.error(err.response?.data?.message || "Failed to load orders");
     } finally {
       setLoading(false);
+      setRefreshing(false);
     }
   };
 
@@ -139,6 +147,15 @@ export default function AdminOrders() {
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
           <h1 className="text-2xl font-bold">Orders</h1>
 
+          <button
+            onClick={() => loadOrders(true)}
+            disabled={refreshing}
+            className="px-4 py-2 rounded-xl bg-primary text-black font-semibold hover:bg-primary/90 transition-all disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2 w-fit"
+          >
+            <FiRefreshCw size={18} className={refreshing ? "animate-spin" : ""} />
+            {refreshing ? "Refreshing..." : "Refresh"}
+          </button>
+
           <div className="flex gap-3">
             <div className="px-4 py-2 rounded-xl bg-white/5">
               Pending:{" "}
@@ -207,7 +224,11 @@ export default function AdminOrders() {
 
       {/* ================= CONTENT ================= */}
       {loading ? (
-        <p className="text-white/60">Loading orders…</p>
+        <div className="space-y-4">
+          {Array.from({ length: 3 }).map((_, i) => (
+            <OrderSkeleton key={i} />
+          ))}
+        </div>
       ) : visibleOrders.length === 0 ? (
         <p className="text-white/60">
           {searchId 

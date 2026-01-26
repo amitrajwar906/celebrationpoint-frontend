@@ -55,6 +55,16 @@ export default function AdminDashboard() {
           const ordersRes = await apiClient.get("/api/admin/orders");
           const orders = Array.isArray(ordersRes.data) ? ordersRes.data : [];
           
+          console.log("[ADMIN] Total orders fetched:", orders.length);
+          console.log("[ADMIN] Complete orders data:", orders);
+          
+          if (orders.length > 0) {
+            console.log("[ADMIN] First order structure:", {
+              keys: Object.keys(orders[0]),
+              data: orders[0]
+            });
+          }
+          
           // Calculate real revenue from orders - check multiple possible field names
           let totalRevenue = 0;
           const revenueByOrder = [];
@@ -150,7 +160,7 @@ export default function AdminDashboard() {
           setOrderTrends(trendData);
           console.log("[ADMIN] Trend data with real revenue:", trendData);
 
-          // Count orders by status
+          // Count orders by status - LOG ALL STATUS VALUES FOR DEBUGGING
           const statusCounts = {
             PENDING: 0,
             DELIVERED: 0,
@@ -160,24 +170,59 @@ export default function AdminDashboard() {
             SHIPPED: 0,
           };
 
+          const statusLog = [];
+
           orders.forEach((order) => {
             const status = order.status || "PENDING";
+            statusLog.push({
+              orderId: order.id,
+              status: status,
+              keys: Object.keys(order).filter(k => k.includes('status') || k.includes('Status'))
+            });
+            
             if (statusCounts.hasOwnProperty(status)) {
               statusCounts[status]++;
             } else {
-              statusCounts.PENDING++;
+              statusCounts[status]++; // Count unknown statuses instead of defaulting to PENDING
             }
           });
 
-          // Create status distribution with real data
+          console.log("[ADMIN] Status values from orders:", statusLog);
+          console.log("[ADMIN] Status counts:", statusCounts);
+
+          // Create status distribution - use EXACT status counts, not combined groups
+          // Only show statuses that have orders
           const statusData = [
             {
               name: "Pending",
-              value: statusCounts.PENDING + statusCounts.CONFIRMED + statusCounts.PAID,
+              value: statusCounts.PENDING || 0,
               color: "#FFB800",
             },
-            { name: "Delivered", value: statusCounts.DELIVERED + statusCounts.SHIPPED, color: "#22C55E" },
-            { name: "Cancelled", value: statusCounts.CANCELLED, color: "#EF4444" },
+            { 
+              name: "Confirmed", 
+              value: statusCounts.CONFIRMED || 0, 
+              color: "#3B82F6" 
+            },
+            { 
+              name: "Paid", 
+              value: statusCounts.PAID || 0, 
+              color: "#10B981" 
+            },
+            { 
+              name: "Shipped", 
+              value: statusCounts.SHIPPED || 0, 
+              color: "#8B5CF6" 
+            },
+            { 
+              name: "Delivered", 
+              value: statusCounts.DELIVERED || 0, 
+              color: "#22C55E" 
+            },
+            { 
+              name: "Cancelled", 
+              value: statusCounts.CANCELLED || 0, 
+              color: "#EF4444" 
+            },
           ].filter((item) => item.value > 0);
 
           setStatusDistribution(statusData);
