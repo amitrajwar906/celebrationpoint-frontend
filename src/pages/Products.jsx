@@ -339,14 +339,14 @@ export default function Products() {
         {filteredProducts.map((p) => (
           <div
             key={p.id}
-            className={`group rounded-xl sm:rounded-2xl p-3 sm:p-4 hover:shadow-glow transition overflow-hidden flex flex-col ${
+            className={`group rounded-xl sm:rounded-2xl p-2 sm:p-3 md:p-4 hover:shadow-glow transition overflow-hidden flex flex-col min-w-0 ${
               theme === "light"
                 ? "bg-white border border-gray-200"
                 : "bg-card border border-white/10"
             }`}
           >
             {/* Image - Clickable */}
-            <Link to={`/product/${p.id}`} className={`h-24 sm:h-28 md:h-36 rounded-lg sm:rounded-xl mb-3 sm:mb-4 flex items-center justify-center overflow-hidden group-hover:scale-[1.02] transition ${
+            <Link to={`/product/${p.id}`} className={`h-20 sm:h-24 md:h-32 rounded-lg sm:rounded-xl mb-2 sm:mb-3 md:mb-4 flex items-center justify-center overflow-hidden group-hover:scale-[1.02] transition flex-shrink-0 ${
               theme === "light" ? "bg-gray-200" : "bg-black/40"
             }`}>
               {p.imageUrl ? (
@@ -362,7 +362,7 @@ export default function Products() {
               ) : null}
               <div
                 style={{ display: p.imageUrl ? "none" : "flex" }}
-                className={`w-full h-full flex items-center justify-center text-xs sm:text-sm ${
+                className={`w-full h-full flex items-center justify-center text-xs ${
                   theme === "light" ? "text-gray-500" : "text-white/30"
                 }`}
               >
@@ -371,14 +371,14 @@ export default function Products() {
             </Link>
 
             {/* Name - Clickable */}
-            <Link to={`/product/${p.id}`} className="block mb-1">
-              <h3 className="font-semibold truncate text-xs sm:text-sm md:text-base line-clamp-2 hover:text-primary transition">
+            <Link to={`/product/${p.id}`} className="block mb-1 min-w-0">
+              <h3 className="font-semibold text-xs sm:text-sm md:text-base line-clamp-2 hover:text-primary transition break-words">
                 {p.name}
               </h3>
             </Link>
 
             {/* Price */}
-            <p className="text-primary font-bold mb-3 sm:mb-4 text-sm sm:text-base">
+            <p className="text-primary font-bold mb-2 sm:mb-3 text-sm sm:text-base truncate">
               ₹{parseFloat(p.price).toFixed(2)}
             </p>
 
@@ -386,10 +386,10 @@ export default function Products() {
             <button
               onClick={() => handleAddToCart(p.id)}
               disabled={addingId === p.id}
-              className="w-full flex items-center justify-center gap-2 py-2 rounded-lg sm:rounded-xl bg-primary hover:opacity-90 transition disabled:opacity-50 text-sm sm:text-base font-medium mt-auto"
+              className="w-full flex items-center justify-center gap-1 sm:gap-2 py-2 px-2 rounded-lg sm:rounded-xl bg-primary hover:opacity-90 transition disabled:opacity-50 text-xs sm:text-sm font-medium mt-auto"
             >
-              <FiShoppingCart size={16} />
-              {addingId === p.id ? "Adding..." : "Add"}
+              <FiShoppingCart size={14} />
+              <span className="truncate">{addingId === p.id ? "Adding..." : "Add"}</span>
             </button>
           </div>
         ))}
