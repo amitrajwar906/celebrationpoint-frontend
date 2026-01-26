@@ -55,12 +55,42 @@ export default function AdminDashboard() {
           const ordersRes = await apiClient.get("/api/admin/orders");
           const orders = Array.isArray(ordersRes.data) ? ordersRes.data : [];
           
-          // Calculate real revenue from orders
+          // Calculate real revenue from orders - check multiple possible field names
           let totalRevenue = 0;
-          orders.forEach((order) => {
-            totalRevenue += (order.totalPrice || order.amount || 0);
-          });
+          const revenueByOrder = [];
           
+          for (const order of orders) {
+            let orderTotal = 0;
+            
+            // Try to get price from direct fields
+            if (order.totalPrice) {
+              orderTotal = order.totalPrice;
+            } else if (order.amount) {
+              orderTotal = order.amount;
+            } else if (order.total) {
+              orderTotal = order.total;
+            } else if (order.totalAmount) {
+              orderTotal = order.totalAmount;
+            } else if (order.paymentAmount) {
+              orderTotal = order.paymentAmount;
+            } else if (order.price) {
+              orderTotal = order.price;
+            } else if (order.items && Array.isArray(order.items)) {
+              // If no direct total, calculate from items
+              orderTotal = order.items.reduce((sum, item) => {
+                return sum + ((item.quantity || 1) * (item.price || item.amount || 0));
+              }, 0);
+            }
+            
+            totalRevenue += orderTotal;
+            revenueByOrder.push({
+              id: order.id,
+              total: orderTotal,
+              keys: Object.keys(order)
+            });
+          }
+          
+          console.log("[ADMIN] Revenue breakdown by order:", revenueByOrder);
           console.log("[ADMIN] Calculated real revenue from orders:", totalRevenue);
           
           // Update stats with real revenue from orders
@@ -85,9 +115,29 @@ export default function AdminDashboard() {
             const orderDate = new Date(order.createdAt);
             const dateStr = orderDate.toLocaleDateString("en-IN", { month: "short", day: "numeric" });
             
+            // Get price using same logic as total revenue calculation
+            let price = 0;
+            if (order.totalPrice) {
+              price = order.totalPrice;
+            } else if (order.amount) {
+              price = order.amount;
+            } else if (order.total) {
+              price = order.total;
+            } else if (order.totalAmount) {
+              price = order.totalAmount;
+            } else if (order.paymentAmount) {
+              price = order.paymentAmount;
+            } else if (order.price) {
+              price = order.price;
+            } else if (order.items && Array.isArray(order.items)) {
+              price = order.items.reduce((sum, item) => {
+                return sum + ((item.quantity || 1) * (item.price || item.amount || 0));
+              }, 0);
+            }
+            
             if (trendMap[dateStr]) {
               trendMap[dateStr].orders += 1;
-              trendMap[dateStr].revenue += (order.totalPrice || order.amount || 0);
+              trendMap[dateStr].revenue += price;
             }
           });
 
