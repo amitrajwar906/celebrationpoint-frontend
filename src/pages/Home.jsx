@@ -77,15 +77,15 @@ export default function Home() {
 
           {/* Right (Featured Products) */}
           <div className="flex-1 w-full">
-            <div className={`relative rounded-2xl sm:rounded-3xl bg-gradient-to-br p-6 sm:p-8 md:p-10 shadow-2xl ${
+            <div className={`relative rounded-2xl sm:rounded-3xl bg-gradient-to-br p-4 sm:p-6 md:p-8 shadow-2xl ${
               theme === "light"
                 ? "from-blue-100 via-white to-transparent border border-gray-300"
                 : "from-primary/20 via-white/5 to-transparent border border-white/10"
             }`}>
-              <div className="grid grid-cols-2 gap-3 sm:gap-4">
+              <div className="grid grid-cols-2 gap-2 sm:gap-3 md:gap-4">
               {loading ? (
                 [1, 2, 3, 4].map((i) => (
-                  <div key={i} className={`h-32 rounded-2xl animate-pulse ${
+                  <div key={i} className={`h-28 sm:h-32 rounded-xl sm:rounded-2xl animate-pulse ${
                     theme === "light"
                       ? "bg-gray-200 border border-gray-300"
                       : "bg-card border border-white/10"
@@ -95,21 +95,21 @@ export default function Home() {
                 products.map((p) => (
                   <div
                     key={p.id}
-                    className={`h-24 sm:h-28 md:h-32 rounded-xl sm:rounded-2xl flex flex-col items-center justify-center text-xs sm:text-sm text-center p-2 ${
+                    className={`h-24 sm:h-28 md:h-32 rounded-lg sm:rounded-xl md:rounded-2xl flex flex-col items-center justify-center text-xs sm:text-sm text-center p-2 sm:p-3 min-w-0 ${
                       theme === "light"
                         ? "bg-gradient-to-br from-blue-50 to-blue-100 border border-blue-200 text-black"
                         : "bg-gradient-to-br from-primary/10 to-primary/5 border border-white/10 text-white"
                     }`}
                   >
-                    <p className="font-semibold truncate line-clamp-2">{p.name}</p>
-                    <p className="text-primary text-xs mt-1">₹{p.price}</p>
+                    <p className="font-semibold line-clamp-2 break-words text-xs sm:text-sm">{p.name}</p>
+                    <p className="text-primary text-xs mt-1 flex-shrink-0">₹{p.price}</p>
                   </div>
                 ))
               ) : (
                 [1, 2, 3, 4].map((i) => (
                   <div
                     key={i}
-                    className={`h-24 sm:h-28 md:h-32 rounded-xl sm:rounded-2xl flex items-center justify-center text-xs sm:text-sm ${
+                    className={`h-24 sm:h-28 md:h-32 rounded-lg sm:rounded-xl md:rounded-2xl flex items-center justify-center text-xs sm:text-sm ${
                       theme === "light"
                         ? "bg-gray-200 border border-gray-300 text-gray-500"
                         : "bg-card border border-white/10 text-white/40"
@@ -121,7 +121,7 @@ export default function Home() {
               )}
             </div>
 
-            <div className="absolute -top-3 sm:-top-4 -right-3 sm:-right-6 bg-primary text-white px-3 sm:px-4 py-1.5 sm:py-2 rounded-lg sm:rounded-xl shadow-glow text-xs sm:text-sm whitespace-nowrap">
+            <div className="absolute -top-2 sm:-top-3 -right-2 sm:-right-4 bg-primary text-white px-2 sm:px-3 py-1 sm:py-1.5 rounded-md sm:rounded-lg shadow-glow text-xs whitespace-nowrap font-semibold">
               Trending 
             </div>
           </div>
