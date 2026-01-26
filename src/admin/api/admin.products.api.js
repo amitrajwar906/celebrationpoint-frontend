@@ -53,7 +53,7 @@ export const deleteProduct = (id) => {
  */
 export const toggleProductStatus = (id, active) => {
   console.log("[PRODUCTS API] Toggling product status:", id, active);
-  return api.patch(`/api/admin/products/${id}/status`, {}, {
+  return apiClient.patch(`/api/admin/products/${id}/status`, {}, {
     params: { active },
   });
 };
