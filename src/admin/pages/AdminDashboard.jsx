@@ -15,7 +15,7 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
-import api from "../../api/axios";
+import apiClient from "../../api/apiClient";
 
 // 🎯 Number formatter function
 const formatNumber = (num) => {
@@ -47,13 +47,13 @@ export default function AdminDashboard() {
     const loadStats = async () => {
       try {
         console.log("[ADMIN] Loading dashboard statistics");
-        const res = await api.get("/api/admin/dashboard");
+        const res = await apiClient.get("/api/admin/dashboard");
         console.log("[ADMIN] Dashboard stats loaded:", res.data);
         setStats(res.data);
 
         // Fetch real order data for trends
         try {
-          const ordersRes = await api.get("/api/admin/orders");
+          const ordersRes = await apiClient.get("/api/admin/orders");
           const orders = Array.isArray(ordersRes.data) ? ordersRes.data : [];
           
           // Group orders by date (last 7 days)

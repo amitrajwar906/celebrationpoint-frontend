@@ -1,11 +1,11 @@
-import api from "./axios";
+import apiClient from "./apiClient";
 
 /**
  * Get current user profile
  */
 export const getProfile = () => {
   console.log("[PROFILE API] Fetching user profile");
-  return api.get("/api/auth/me");
+  return apiClient.get("/api/auth/me");
 };
 
 /**
@@ -13,7 +13,7 @@ export const getProfile = () => {
  */
 export const updateProfile = (profileData) => {
   console.log("[PROFILE API] Updating profile with data:", profileData);
-  return api.put("/api/auth/profile", profileData);
+  return apiClient.put("/api/auth/profile", profileData);
 };
 
 /**
@@ -26,7 +26,7 @@ export const changePassword = (oldPassword, newPassword) => {
     newPassword: newPassword ? "***" : "",
   });
   
-  return api
+  return apiClient
     .put("/api/auth/change-password", {
       oldPassword,
       newPassword,

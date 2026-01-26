@@ -1,4 +1,4 @@
-import api from "../../api/axios";
+import apiClient from "../../api/apiClient";
 
 /* =========================================
    ADMIN ORDER CANCELLATIONS API
@@ -10,7 +10,7 @@ import api from "../../api/axios";
  * GET /api/admin/order-cancellations
  */
 export const getOrderCancellations = () => {
-  return api.get("/api/admin/order-cancellations");
+  return apiClient.get("/api/admin/order-cancellations");
 };
 
 /**
@@ -18,7 +18,7 @@ export const getOrderCancellations = () => {
  * PUT /api/admin/order-cancellations/{id}/approve
  */
 export const approveCancellation = (id) => {
-  return api.put(`/api/admin/order-cancellations/${id}/approve`);
+  return apiClient.put(`/api/admin/order-cancellations/${id}/approve`);
 };
 
 /**
@@ -26,5 +26,5 @@ export const approveCancellation = (id) => {
  * PUT /api/admin/order-cancellations/{id}/reject
  */
 export const rejectCancellation = (id) => {
-  return api.put(`/api/admin/order-cancellations/${id}/reject`);
+  return apiClient.put(`/api/admin/order-cancellations/${id}/reject`);
 };

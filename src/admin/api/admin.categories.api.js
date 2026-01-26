@@ -1,4 +1,4 @@
-import api from "../../api/axios";
+import apiClient from "../../api/apiClient";
 
 /* =========================================
    ADMIN CATEGORIES API
@@ -10,7 +10,7 @@ import api from "../../api/axios";
  * GET /api/admin/categories
  */
 export const getAllCategories = () => {
-  return api.get("/api/admin/categories");
+  return apiClient.get("/api/admin/categories");
 };
 
 /**
@@ -19,7 +19,7 @@ export const getAllCategories = () => {
  * body: { name: "Birthday" }
  */
 export const createCategory = (data) => {
-  return api.post("/api/admin/categories", data);
+  return apiClient.post("/api/admin/categories", data);
 };
 
 /**
@@ -28,7 +28,7 @@ export const createCategory = (data) => {
  * body: { name: "Updated Name" }
  */
 export const updateCategory = (id, data) => {
-  return api.put(`/api/admin/categories/${id}`, data);
+  return apiClient.put(`/api/admin/categories/${id}`, data);
 };
 
 /**
@@ -36,7 +36,7 @@ export const updateCategory = (id, data) => {
  * DELETE /api/admin/categories/{id}
  */
 export const deleteCategory = (id) => {
-  return api.delete(`/api/admin/categories/${id}`);
+  return apiClient.delete(`/api/admin/categories/${id}`);
 };
 
 /**
@@ -48,7 +48,7 @@ export const toggleCategoryStatus = (id, active) => {
   console.log(`[CATEGORY] Starting toggle for category ${id}, setting active to ${active}`);
   console.log(`[CATEGORY] Request URL: /api/admin/categories/${id}/status?active=${active}`);
   
-  return api.patch(`/api/admin/categories/${id}/status`, {}, {
+  return apiClient.patch(`/api/admin/categories/${id}/status`, {}, {
     params: { active }
   })
   .then(res => {

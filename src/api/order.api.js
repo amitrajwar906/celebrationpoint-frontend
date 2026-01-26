@@ -1,4 +1,4 @@
-import api from "./axios";
+import apiClient from "./apiClient";
 
 // ==============================
 // 📦 ORDER APIs (JWT REQUIRED)
@@ -17,7 +17,7 @@ export const getOrders = () => {
   console.log("[ORDER] Token exists:", !!token);
   console.log("[ORDER] Token preview:", token ? token.substring(0, 20) + "..." : "NO TOKEN");
   
-  return api.get("/api/orders");
+  return apiClient.get("/api/orders");
 };
 
 /**
@@ -27,7 +27,7 @@ export const getOrders = () => {
  */
 export const getOrderItems = (orderId) => {
   console.log(`[ORDER] Fetching items for order ${orderId}`);
-  return api.get(`/api/orders/${orderId}/items`);
+  return apiClient.get(`/api/orders/${orderId}/items`);
 };
 
 /**
@@ -37,5 +37,5 @@ export const getOrderItems = (orderId) => {
  */
 export const cancelOrder = (orderId) => {
   console.log(`[ORDER] Cancelling order ${orderId}`);
-  return api.post(`/api/orders/${orderId}/cancel`);
+  return apiClient.post(`/api/orders/${orderId}/cancel`);
 };

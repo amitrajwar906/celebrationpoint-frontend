@@ -1,11 +1,11 @@
-import api from "../../api/axios";
+import apiClient from "../../api/apiClient";
 
 /**
  * Get all products (admin view)
  */
 export const getAllProducts = () => {
   console.log("[PRODUCTS API] Fetching all products");
-  return api.get("/api/admin/products");
+  return apiClient.get("/api/admin/products");
 };
 
 /**
@@ -13,7 +13,7 @@ export const getAllProducts = () => {
  */
 export const getProductById = (id) => {
   console.log("[PRODUCTS API] Fetching product:", id);
-  return api.get(`/api/admin/products/${id}`);
+  return apiClient.get(`/api/admin/products/${id}`);
 };
 
 /**
@@ -21,7 +21,7 @@ export const getProductById = (id) => {
  */
 export const createProduct = (productData) => {
   console.log("[PRODUCTS API] Creating product:", productData);
-  return api.post("/api/admin/products", productData);
+  return apiClient.post("/api/admin/products", productData);
 };
 
 /**
@@ -29,7 +29,7 @@ export const createProduct = (productData) => {
  */
 export const updateProduct = (id, productData) => {
   console.log("[PRODUCTS API] Updating product:", id, productData);
-  return api.put(`/api/admin/products/${id}`, productData);
+  return apiClient.put(`/api/admin/products/${id}`, productData);
 };
 
 /**
@@ -37,7 +37,7 @@ export const updateProduct = (id, productData) => {
  */
 export const deleteProduct = (id) => {
   console.log("[PRODUCTS API] Deleting product:", id);
-  return api.delete(`/api/admin/products/${id}`)
+  return apiClient.delete(`/api/admin/products/${id}`)
     .then(res => {
       console.log("[PRODUCTS API] Delete successful:", res.data);
       return res;

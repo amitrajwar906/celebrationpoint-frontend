@@ -52,9 +52,17 @@ export const getApiConfig = () => ({
   },
 });
 
-// Log configuration in development mode
+// Log configuration (ALWAYS, even in production for debugging)
+console.log("[API CONFIG] 🔧 Vite Environment Variables:", {
+  VITE_API_BASE_URL: import.meta.env.VITE_API_BASE_URL || "NOT SET",
+  DEV: import.meta.env.DEV,
+  PROD: import.meta.env.PROD,
+  SSR: import.meta.env.SSR,
+});
+console.log("[API CONFIG] ✅ Using API Base URL:", API_BASE_URL);
+
 if (import.meta.env.DEV) {
-  console.log("[API CONFIG] 🔧 API Configuration:", getApiConfig());
+  console.log("[API CONFIG] 🔧 Full Configuration:", getApiConfig());
 }
 
 export default API_BASE_URL;

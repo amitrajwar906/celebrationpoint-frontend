@@ -1,4 +1,4 @@
-import api from "../../api/axios";
+import apiClient from "../../api/apiClient";
 
 /* =========================================
    ADMIN AUDIT LOGS API
@@ -10,7 +10,7 @@ import api from "../../api/axios";
  * GET /api/admin/audit-logs?page=0&size=10
  */
 export const getAuditLogs = (page = 0, size = 10) => {
-  return api.get("/api/admin/audit-logs", {
+  return apiClient.get("/api/admin/audit-logs", {
     params: {
       page,
       size,

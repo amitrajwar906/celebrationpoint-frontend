@@ -1,4 +1,4 @@
-import api from "./axios";
+import apiClient from "./apiClient";
 
 // 📦 CHECKOUT API (JWT REQUIRED)
 
@@ -24,7 +24,7 @@ export const createCheckout = (data) => {
     console.warn("[CHECKOUT] ⚠️ NO JWT TOKEN - Request will fail with 401!");
   }
   
-  return api.post("/api/checkout", data)
+  return apiClient.post("/api/checkout", data)
     .then(res => {
       console.log("[CHECKOUT] ✅ Success - Order created:", res.data);
       return res;

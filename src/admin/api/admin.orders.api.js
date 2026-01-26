@@ -1,4 +1,4 @@
-import api from "../../api/axios";
+import apiClient from "../../api/apiClient";
 
 /* =========================================
    ADMIN ORDERS API
@@ -12,7 +12,7 @@ import api from "../../api/axios";
  * GET /api/admin/orders
  */
 export const getAllOrders = (params = {}) => {
-  return api.get("/api/admin/orders", {
+  return apiClient.get("/api/admin/orders", {
     params, // pagination / filters (future ready)
   });
 };
@@ -22,7 +22,7 @@ export const getAllOrders = (params = {}) => {
  * GET /api/admin/orders/{orderId}
  */
 export const getOrderById = (orderId) => {
-  return api.get(`/api/admin/orders/${orderId}`);
+  return apiClient.get(`/api/admin/orders/${orderId}`);
 };
 
 /**
@@ -31,7 +31,7 @@ export const getOrderById = (orderId) => {
  * body: { status: "SHIPPED" | "DELIVERED" | etc }
  */
 export const updateOrderStatus = (orderId, status) => {
-  return api.put(`/api/admin/orders/${orderId}/status`, {
+  return apiClient.put(`/api/admin/orders/${orderId}/status`, {
     status,
   });
 };
@@ -41,7 +41,7 @@ export const updateOrderStatus = (orderId, status) => {
  * POST /api/admin/orders/{orderId}/cancel
  */
 export const cancelOrderByAdmin = (orderId) => {
-  return api.post(`/api/admin/orders/${orderId}/cancel`);
+  return apiClient.post(`/api/admin/orders/${orderId}/cancel`);
 };
 
 /**
@@ -49,5 +49,5 @@ export const cancelOrderByAdmin = (orderId) => {
  * GET /api/admin/orders/{orderId}/items
  */
 export const getAdminOrderItems = (orderId) => {
-  return api.get(`/api/admin/orders/${orderId}/items`);
+  return apiClient.get(`/api/admin/orders/${orderId}/items`);
 };

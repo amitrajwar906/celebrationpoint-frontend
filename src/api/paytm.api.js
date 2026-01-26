@@ -1,4 +1,4 @@
-import axios from "./axios";
+import apiClient from "./apiClient";
 
 /**
  * Paytm Payment Gateway API Integration
@@ -20,7 +20,7 @@ import axios from "./axios";
  * @returns {Promise} Response with Paytm parameters and checksum
  */
 export const initiatePaytmPayment = async (orderId) => {
-  return axios.post("/api/paytm/initiate", { orderId });
+  return apiClient.post("/api/paytm/initiate", { orderId });
 };
 
 /**
@@ -29,7 +29,7 @@ export const initiatePaytmPayment = async (orderId) => {
  * @returns {Promise} Response with Paytm Secure Gateway URL
  */
 export const getPaytmGatewayUrl = async () => {
-  return axios.get("/api/paytm/gateway-url");
+  return apiClient.get("/api/paytm/gateway-url");
 };
 
 /**
