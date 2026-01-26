@@ -4,10 +4,12 @@ import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { registerUser } from "../api/auth.api";
 import { useAuth } from "../context/AuthContext";
+import { useTheme } from "../context/ThemeContext";
 
 export default function RegisterModal({ open, onClose, onSwitchToLogin }) {
   const navigate = useNavigate();
   const { login } = useAuth();
+  const { theme } = useTheme();
   const [form, setForm] = useState({
     fullName: "",
     email: "",
@@ -76,24 +78,44 @@ export default function RegisterModal({ open, onClose, onSwitchToLogin }) {
       {/* Backdrop */}
       <div
         onClick={onClose}
-        className="absolute inset-0 bg-black/70 backdrop-blur-sm"
+        className={`absolute inset-0 backdrop-blur-sm transition-colors duration-300 ${
+          theme === "light" ? "bg-black/20" : "bg-black/70"
+        }`}
       />
 
       {/* Modal */}
-      <div className="relative w-full max-w-md mx-4 rounded-2xl bg-card border border-white/10 p-6 shadow-2xl">
+      <div
+        className={`relative w-full max-w-md mx-4 rounded-2xl border p-6 shadow-2xl transition-colors duration-300 ${
+          theme === "light"
+            ? "bg-white border-gray-200"
+            : "bg-card border-white/10"
+        }`}
+      >
         {/* Close button */}
         <button
           onClick={onClose}
-          className="absolute top-4 right-4 text-white/60 hover:text-white"
+          className={`absolute top-4 right-4 transition-colors duration-300 ${
+            theme === "light"
+              ? "text-gray-500 hover:text-gray-800"
+              : "text-white/60 hover:text-white"
+          }`}
         >
           <FiX size={20} />
         </button>
 
         {/* Header */}
-        <h2 className="text-2xl font-bold text-center mb-2">
+        <h2
+          className={`text-2xl font-bold text-center mb-2 transition-colors duration-300 ${
+            theme === "light" ? "text-black" : "text-white"
+          }`}
+        >
           Create Account
         </h2>
-        <p className="text-white/60 text-center mb-6">
+        <p
+          className={`text-center mb-6 transition-colors duration-300 ${
+            theme === "light" ? "text-gray-600" : "text-white/60"
+          }`}
+        >
           Join Celebration Point
         </p>
 
@@ -101,10 +123,18 @@ export default function RegisterModal({ open, onClose, onSwitchToLogin }) {
         <form onSubmit={submit} className="space-y-4">
           {/* Full Name */}
           <div className="relative">
-            <FiUser className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" />
+            <FiUser
+              className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-300 ${
+                theme === "light" ? "text-gray-500" : "text-white/40"
+              }`}
+            />
             <input
               placeholder="Full Name"
-              className="w-full pl-10 pr-4 py-3 rounded-xl bg-black/40 border border-white/10 focus:outline-none focus:border-primary"
+              className={`w-full pl-10 pr-4 py-3 rounded-xl border focus:outline-none focus:border-primary transition-colors duration-300 ${
+                theme === "light"
+                  ? "bg-gray-50 border-gray-300 text-black placeholder-gray-400"
+                  : "bg-black/40 border-white/10 text-white placeholder-white/40"
+              }`}
               value={form.fullName}
               onChange={(e) =>
                 setForm({ ...form, fullName: e.target.value })
@@ -114,11 +144,19 @@ export default function RegisterModal({ open, onClose, onSwitchToLogin }) {
 
           {/* Email */}
           <div className="relative">
-            <FiMail className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" />
+            <FiMail
+              className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-300 ${
+                theme === "light" ? "text-gray-500" : "text-white/40"
+              }`}
+            />
             <input
               type="email"
               placeholder="Email"
-              className="w-full pl-10 pr-4 py-3 rounded-xl bg-black/40 border border-white/10 focus:outline-none focus:border-primary"
+              className={`w-full pl-10 pr-4 py-3 rounded-xl border focus:outline-none focus:border-primary transition-colors duration-300 ${
+                theme === "light"
+                  ? "bg-gray-50 border-gray-300 text-black placeholder-gray-400"
+                  : "bg-black/40 border-white/10 text-white placeholder-white/40"
+              }`}
               value={form.email}
               onChange={(e) =>
                 setForm({ ...form, email: e.target.value })
@@ -128,11 +166,19 @@ export default function RegisterModal({ open, onClose, onSwitchToLogin }) {
 
           {/* Password */}
           <div className="relative">
-            <FiLock className="absolute left-3 top-1/2 -translate-y-1/2 text-white/40" />
+            <FiLock
+              className={`absolute left-3 top-1/2 -translate-y-1/2 transition-colors duration-300 ${
+                theme === "light" ? "text-gray-500" : "text-white/40"
+              }`}
+            />
             <input
               type="password"
               placeholder="Password"
-              className="w-full pl-10 pr-4 py-3 rounded-xl bg-black/40 border border-white/10 focus:outline-none focus:border-primary"
+              className={`w-full pl-10 pr-4 py-3 rounded-xl border focus:outline-none focus:border-primary transition-colors duration-300 ${
+                theme === "light"
+                  ? "bg-gray-50 border-gray-300 text-black placeholder-gray-400"
+                  : "bg-black/40 border-white/10 text-white placeholder-white/40"
+              }`}
               value={form.password}
               onChange={(e) =>
                 setForm({ ...form, password: e.target.value })
@@ -156,7 +202,11 @@ export default function RegisterModal({ open, onClose, onSwitchToLogin }) {
               onSwitchToLogin();
               onClose();
             }}
-            className="w-full py-3 rounded-xl border border-primary text-primary hover:bg-primary/10 transition"
+            className={`w-full py-3 rounded-xl border border-primary text-primary transition-colors duration-300 ${
+              theme === "light"
+                ? "hover:bg-primary/5"
+                : "hover:bg-primary/10"
+            }`}
           >
             Already have account? Login
           </button>
