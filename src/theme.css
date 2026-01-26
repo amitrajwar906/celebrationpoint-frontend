@@ -1,0 +1,287 @@
+/* ==================== LIGHT MODE COMPREHENSIVE STYLING ==================== */
+
+/* Light Mode Root Variables */
+:root.light {
+  --bg-dark: #ffffff;
+  --bg-card: #f5f5f5;
+  --text-primary: #000000;
+  --text-secondary: #333333;
+  --text-muted: #666666;
+  --border-color: #e0e0e0;
+  --input-bg: #f0f0f0;
+  --input-border: #d0d0d0;
+  color-scheme: light;
+}
+
+/* ============ PRIMARY BACKGROUNDS ============ */
+:root.light body,
+:root.light main,
+:root.light .bg-dark {
+  @apply bg-white text-black;
+}
+
+:root.light html {
+  @apply bg-white;
+}
+
+/* ============ GENERAL TEXT INVERSIONS ============ */
+:root.light .text-white {
+  @apply text-black;
+}
+
+:root.light .text-white\/30 {
+  @apply text-black\/30;
+}
+
+:root.light .text-white\/40 {
+  @apply text-black\/40;
+}
+
+:root.light .text-white\/50 {
+  @apply text-black\/50;
+}
+
+:root.light .text-white\/60 {
+  @apply text-black\/60;
+}
+
+:root.light .text-white\/70 {
+  @apply text-black\/70;
+}
+
+:root.light .text-white\/80 {
+  @apply text-black\/80;
+}
+
+:root.light .text-white\/90 {
+  @apply text-black\/90;
+}
+
+/* ============ CARD AND CONTAINER BACKGROUNDS ============ */
+:root.light .bg-card {
+  @apply bg-gray-50 border-gray-200;
+}
+
+:root.light .bg-black {
+  @apply bg-gray-100;
+}
+
+:root.light .bg-black\/10 {
+  @apply bg-gray-200\/50;
+}
+
+:root.light .bg-black\/20 {
+  @apply bg-gray-300\/50;
+}
+
+:root.light .bg-black\/30 {
+  @apply bg-gray-400\/50;
+}
+
+:root.light .bg-black\/40 {
+  @apply bg-gray-300;
+}
+
+:root.light .bg-black\/50 {
+  @apply bg-gray-400;
+}
+
+:root.light .bg-black\/60 {
+  @apply bg-gray-500;
+}
+
+:root.light .bg-black\/70 {
+  @apply bg-gray-600;
+}
+
+:root.light .bg-black\/80 {
+  @apply bg-gray-700;
+}
+
+/* ============ BORDER STYLING ============ */
+:root.light .border-white\/10 {
+  @apply border-gray-300;
+}
+
+:root.light .border-white\/20 {
+  @apply border-gray-300;
+}
+
+:root.light .border-white\/30 {
+  @apply border-gray-400;
+}
+
+:root.light .border-white\/50 {
+  @apply border-gray-500;
+}
+
+/* ============ BACKGROUND WITH OPACITY ============ */
+:root.light .bg-white\/5 {
+  @apply bg-black\/5;
+}
+
+:root.light .bg-white\/10 {
+  @apply bg-black\/8;
+}
+
+:root.light .bg-white\/15 {
+  @apply bg-black\/12;
+}
+
+:root.light .bg-white\/20 {
+  @apply bg-black\/15;
+}
+
+:root.light .bg-white\/30 {
+  @apply bg-black\/25;
+}
+
+/* ============ FORM ELEMENTS (INPUT, TEXTAREA, SELECT) ============ */
+:root.light input,
+:root.light textarea,
+:root.light select {
+  @apply bg-white text-black border-gray-300;
+}
+
+:root.light input:focus,
+:root.light textarea:focus,
+:root.light select:focus {
+  @apply border-blue-500 bg-white text-black;
+}
+
+:root.light input::placeholder,
+:root.light textarea::placeholder {
+  @apply text-gray-500;
+}
+
+:root.light .placeholder-white\/40 {
+  @apply placeholder-gray-500;
+}
+
+:root.light option {
+  @apply bg-white text-black;
+}
+
+/* ============ HEADER AND NAVIGATION ============ */
+:root.light header,
+:root.light nav {
+  @apply bg-white border-b border-gray-200 text-black;
+}
+
+:root.light .nav-item {
+  @apply text-black hover:bg-gray-100;
+}
+
+:root.light a {
+  @apply text-blue-600 hover:text-blue-700;
+}
+
+/* ============ BUTTONS ============ */
+:root.light button {
+  @apply text-black;
+}
+
+:root.light .btn-secondary {
+  @apply bg-gray-200 text-black hover:bg-gray-300;
+}
+
+/* ============ MODALS AND DIALOGS ============ */
+:root.light .modal,
+:root.light [role="dialog"],
+:root.light .rounded-2xl {
+  @apply bg-white border-gray-200 text-black;
+}
+
+:root.light .backdrop {
+  @apply bg-black\/30;
+}
+
+/* ============ GRADIENTS ============ */
+:root.light .from-card {
+  @apply from-gray-50;
+}
+
+:root.light .to-card {
+  @apply to-gray-100;
+}
+
+:root.light .from-primary {
+  @apply from-blue-600;
+}
+
+:root.light .to-primary {
+  @apply to-blue-700;
+}
+
+/* ============ PRIMARY COLOR PRESERVATION ============ */
+:root.light .text-primary,
+:root.light .from-primary {
+  @apply text-blue-600;
+}
+
+:root.light .bg-primary {
+  @apply bg-blue-600;
+}
+
+:root.light .border-primary {
+  @apply border-blue-600;
+}
+
+/* ============ SCROLLBAR ============ */
+:root.light ::-webkit-scrollbar {
+  @apply w-2;
+}
+
+:root.light ::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+:root.light ::-webkit-scrollbar-thumb {
+  @apply bg-gray-400 hover:bg-gray-500 rounded;
+}
+
+/* ============ SHADOWS ============ */
+:root.light .shadow-glow {
+  @apply shadow-lg;
+}
+
+:root.light .shadow-md {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* ============ ADDITIONAL COMPONENT FIXES ============ */
+:root.light label {
+  @apply text-black;
+}
+
+:root.light .placeholder {
+  @apply text-gray-500;
+}
+
+:root.light hr,
+:root.light .divider {
+  @apply border-gray-300;
+}
+
+:root.light table {
+  @apply border-gray-300;
+}
+
+:root.light th,
+:root.light td {
+  @apply border-gray-300;
+}
+
+:root.light tbody tr {
+  @apply border-gray-200;
+}
+
+:root.light tbody tr:hover {
+  @apply bg-gray-50;
+}
+
+/* ============ CODE BLOCKS (if any) ============ */
+:root.light code,
+:root.light pre {
+  @apply bg-gray-100 text-black border-gray-300;
+}
