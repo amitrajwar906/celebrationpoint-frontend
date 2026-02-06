@@ -41,7 +41,7 @@ export default function Home() {
           <div className="flex-1 w-full space-y-4 sm:space-y-6 text-center md:text-left">
             <span className="inline-flex items-center justify-center md:justify-start gap-2 px-3 sm:px-4 py-2 rounded-full bg-primary/10 text-primary text-sm sm:text-base">
               <FiStar size={16} />
-              Premium Celebration Store
+              Premium Celebrations Store
             </span>
 
             <h1 className="text-4xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight break-words">

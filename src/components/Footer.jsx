@@ -20,7 +20,7 @@ export default function Footer() {
         {/* Brand */}
         <div>
           <h2 className="text-xl font-bold text-primary">
-            Celebration<span className={theme === "light" ? "text-black" : "text-white"}>Point</span>
+            Celebrations<span className={theme === "light" ? "text-black" : "text-white"}>Point</span>
           </h2>
           <p className={`mt-3 text-sm ${
             theme === "light" ? "text-gray-600" : "text-white/60"

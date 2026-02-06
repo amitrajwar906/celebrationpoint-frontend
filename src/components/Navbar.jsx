@@ -69,7 +69,7 @@ export default function Navbar() {
               onClick={closeMobile}
               className="text-lg sm:text-xl md:text-2xl font-bold bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent tracking-tight hover:opacity-80 transition whitespace-nowrap"
             >
-              Celebration<span className={theme === "light" ? "text-black" : "text-white"}>Point</span>
+              Celebrations<span className={theme === "light" ? "text-black" : "text-white"}>Point</span>
             </Link>
 
             {/* ================= DESKTOP NAV ================= */}

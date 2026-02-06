@@ -116,7 +116,7 @@ export default function RegisterModal({ open, onClose, onSwitchToLogin }) {
             theme === "light" ? "text-gray-600" : "text-white/60"
           }`}
         >
-          Join Celebration Point
+          Join Celebrations Point
         </p>
 
         {/* Form */}

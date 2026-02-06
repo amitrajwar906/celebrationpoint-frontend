@@ -31,7 +31,7 @@ export default function AdminSidebar({ onNavigate }) {
       
       {/* ================= BRAND ================= */}
       <div className="px-6 py-6 text-xl font-bold tracking-wide">
-        <span className="text-primary">Celebration</span> Admin
+        <span className="text-primary">Celebrations</span> Admin
       </div>
 
       {/* ================= NAV ================= */}
