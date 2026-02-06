@@ -66,7 +66,7 @@ export default function Checkout() {
         postalCode: form.pincode,
         paymentMethod: paymentMethod,  // Use selected payment method
       };
-      
+
       console.log("[CHECKOUT] Sending checkout data:", JSON.stringify(checkoutData, null, 2));
       const res = await createCheckout(checkoutData);
 
@@ -84,9 +84,9 @@ export default function Checkout() {
 
       // Handle different payment methods
       if (paymentMethod === "COD") {
-        // COD: Direct redirect to orders
+        // COD: show order success page using the checkout response
         console.log("[CHECKOUT] 💳 COD selected - Order created with CONFIRMED status");
-        navigate("/orders");
+        navigate("/order-success", { state: { order: res.data } });
       } else if (paymentMethod === "PAYTM") {
         // Paytm: Redirect to payment page for Paytm initialization
         console.log("[CHECKOUT] 💳 PAYTM selected - Order created with PENDING status, redirecting to payment");
@@ -96,7 +96,7 @@ export default function Checkout() {
       console.error("[CHECKOUT] ❌ Checkout failed:", err.message);
       const errorData = err.response?.data;
       const statusCode = err.response?.status;
-      
+
       console.error("[CHECKOUT] ❌ HTTP Status:", statusCode);
       console.error("[CHECKOUT] ❌ Full error response:", JSON.stringify(errorData, null, 2));
       console.error("[CHECKOUT] ❌ Error details:", {
@@ -104,9 +104,9 @@ export default function Checkout() {
         status: statusCode,
         data: errorData,
       });
-      
+
       let errorMsg = "Checkout failed";
-      
+
       // Handle different error types
       if (statusCode === 401) {
         errorMsg = "⚠️ Not authenticated - Please login again";
@@ -124,7 +124,7 @@ export default function Checkout() {
       } else if (errorData?.error) {
         errorMsg = errorData.error;
       }
-      
+
       console.error("[CHECKOUT] ✅ Final error message to show user:", errorMsg);
       toast.error(errorMsg);
     } finally {
@@ -166,7 +166,10 @@ export default function Checkout() {
         {/* Payment Method Selection */}
         <div className="bg-black/40 border border-white/10 rounded-xl p-6">
           <h2 className="text-xl font-semibold mb-4">Payment Method</h2>
+
           <div className="space-y-3">
+
+            {/* COD */}
             <label className="flex items-center cursor-pointer">
               <input
                 type="radio"
@@ -178,19 +181,27 @@ export default function Checkout() {
               />
               <span className="ml-3">Cash on Delivery (COD)</span>
             </label>
-            <label className="flex items-center cursor-pointer">
+
+            {/* PAYTM (DISABLED + TOAST) */}
+            <label
+              onClick={() =>
+                toast.error("Online payment not integrated yet. We are working on it.")
+              }
+              className="flex items-center opacity-50 cursor-not-allowed"
+            >
               <input
                 type="radio"
-                name="paymentMethod"
-                value="PAYTM"
-                checked={paymentMethod === "PAYTM"}
-                onChange={(e) => setPaymentMethod(e.target.value)}
-                className="w-4 h-4 cursor-pointer"
+                disabled
+                className="w-4 h-4 cursor-not-allowed"
               />
-              <span className="ml-3">Paytm</span>
+              <span className="ml-3">
+                Paytm (Coming Soon)
+              </span>
             </label>
+
           </div>
         </div>
+
 
         <button
           type="submit"

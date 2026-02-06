@@ -17,6 +17,7 @@ import PaytmCallback from "./pages/PaytmCallback";
 import Orders from "./pages/Orders";
 import Invoice from "./pages/Invoice";
 import Profile from "./pages/Profile";
+import OrderSuccess from "./pages/OrderSuccess";
 
 // Route Guards
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -75,6 +76,15 @@ function AppContent() {
             element={
               <ProtectedRoute>
                 <Payment />
+              </ProtectedRoute>
+            }
+          />
+
+          <Route
+            path="/order-success"
+            element={
+              <ProtectedRoute>
+                <OrderSuccess />
               </ProtectedRoute>
             }
           />
